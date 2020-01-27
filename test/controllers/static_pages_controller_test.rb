@@ -1,35 +1,35 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class StaticPagesControllerTest < ActionDispatch::IntegrationTest
-
   def setup
-    @title = "Ruby on Rails Tutorial Sample App"
+    @title = 'Ruby on Rails Tutorial Sample App'
   end
 
-  test "should get root" do
+  test 'should get root' do
     get FILL_IN
     assert_response FILL_IN
   end
 
-  test "should get home" do
+  test 'should get home' do
     get static_pages_home_url
     assert_response :success
   end
 
-  test "should get help" do
+  test 'should get help' do
     get static_pages_help_url
     assert_response :success
   end
 
-  test "should get about" do
+  test 'should get about' do
     get static_pages_about_url
     assert_response :success
   end
-  
-  test "should get contact" do
+
+  test 'should get contact' do
     get static_pages_contact_url
     assert_response :success
-    assert_select "title", "Contact | #{@title}"
+    assert_select 'title', "Contact | #{@title}"
   end
-
 end

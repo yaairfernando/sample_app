@@ -3,6 +3,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield2]][linkedin-url2]
+![Hireable](https://cdn.rawgit.com/hiendv/hireable/master/styles/flat/yes.svg)
 
 <!-- PROJECT LOGO -->
 <br />

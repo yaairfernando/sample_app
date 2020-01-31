@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :users
+  resources :users, except: %i[new]
   resources :posts
   root 'static_pages#home'
   get 'signup', to: 'users#new'

@@ -43,6 +43,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'rubocop'
   gem 'sqlite3'
+  gem 'rspec-rails'
+  gem "factory_bot_rails"
+  gem 'capybara', '>= 2.15'
+  gem 'database_cleaner'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %I[mri mingw x64_mingw]
 end

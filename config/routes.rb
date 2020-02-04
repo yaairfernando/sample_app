@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'sessions/new'
   resources :users, except: %i[new]
   resources :posts
   root 'static_pages#home'

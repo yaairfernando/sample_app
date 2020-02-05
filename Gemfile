@@ -45,6 +45,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem "factory_bot_rails"
+  gem 'faker'
   gem 'capybara', '>= 2.15'
   gem 'database_cleaner'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

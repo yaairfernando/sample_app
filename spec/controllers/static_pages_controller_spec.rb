@@ -8,7 +8,8 @@ RSpec.describe StaticPagesController, type: :controller do
     it 'return a 200 status code' do
       get :home
       expect(response).to render_template('home')
-      expect(response.status).to eq(200)  
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(200)
       expect(response.body).to have_title("#{@title}") 
     end
   end

@@ -9,6 +9,10 @@ RSpec.describe PostsController, :type => :controller do
       password_confirmation: "password"}
   }
 
+  before(:all) do
+    
+  end
+
   describe "Get index" do
     it 'has a 200 status code' do
       get :index
@@ -41,6 +45,13 @@ RSpec.describe PostsController, :type => :controller do
       expect(response.content_type).to eq "text/html" 
     end
   end
-  
-  
+
+  describe 'GET /post/:id', action_name: 'Get a post' do
+    let(:user) { FactoryBot.create :user }
+    let(:post) { FactoryBot.create(:post, user_id: user.id) }
+    it 'gets a post' do
+      # get edit_post_path(post)
+      # expect(response).to have_http_status(200)
+    end
+  end  
 end

@@ -8,8 +8,8 @@ RSpec.describe UsersController, type: :controller do
       password: "password", 
       password_confirmation: "password"}
   }
-
   let(:user) { FactoryBot.create(:user)}
+  let(:users) { create_list(:random_user, 5)}
   before(:all) do
     # @user = FactoryBot.create(:user)
   end
@@ -54,20 +54,37 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe 'POST @Create list of users' do
-    before(:all) do
-      emails = ["majo@gmail.com", "sebas@gmail.com", "carlota@gmail.com"]
-        emails.each do |e|
-          @users = FactoryBot.create(:user, email: e )
-        end
-    end
+  describe 'POST #Create list of users' do
     it 'return a list of users' do
-      expect(@users.size).to eq(3)
+      expect(users.size).to eq(5)
     end
-    
   end
   
-  
-  
+  describe 'GET #Show a user' do
+    it 'returns with a 200 status code' do
+      get :show, params: { id: user.id }
+      expect(response.status).to eq(200)
+      expect(response).to render_template :show
+      expect(assigns(:user)).to eq(user)  
+      # expect(response).to redirect_to user_path(user) 
+    end
+  end
 
+  describe 'PUT #Edit a user' do
+    let(:newUser) { create :random_user }
+    let(:new_attributes) {
+      { name: "Jose" }
+    }
+    let(:valid_session) { {} }
+    it 'updates a user' do
+      user = create(:random_user)
+      put :update, {id: user.to_param, user: new_attributes }
+      user.reload
+      expect(assigns(:user).attributes['name']).to match(new_attributes[:name])
+
+      new_attributes.each_pair do |key, value|
+        expect(user[key]).to eq(value)  
+      end
+    end
+  end
 end

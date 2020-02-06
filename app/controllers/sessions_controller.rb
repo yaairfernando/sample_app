@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       render html: 'Yes'
     else
-      flash[:danger] = "Password or email are invalid!!.. Try again please"
+      flash.now[:danger] = "Password or email are invalid!!.. Try again please"
       render 'new'
     end
   end

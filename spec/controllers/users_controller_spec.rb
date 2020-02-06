@@ -66,25 +66,27 @@ RSpec.describe UsersController, type: :controller do
       expect(response.status).to eq(200)
       expect(response).to render_template :show
       expect(assigns(:user)).to eq(user)  
-      # expect(response).to redirect_to user_path(user) 
     end
   end
 
   describe 'PUT #Edit a user' do
-    let(:newUser) { create :random_user }
-    let(:new_attributes) {
-      { name: "Jose" }
-    }
-    let(:valid_session) { {} }
     it 'updates a user' do
+      new_attributes = { :name => "Joaquin Mata", :email => "joaquin@gmail.com",
+        password: "password12345", password_confirmation: "password12345" }
       user = create(:random_user)
-      put :update, {id: user.to_param, user: new_attributes }
+      put :update, params: {:id => user.id, :user => new_attributes }
       user.reload
       expect(assigns(:user).attributes['name']).to match(new_attributes[:name])
+      expect(assigns[:user]).not_to be_new_record
+    end
+  end
 
-      new_attributes.each_pair do |key, value|
-        expect(user[key]).to eq(value)  
-      end
+  describe 'DELETE #Destroy a user and its posts' do
+    it 'delete a user' do
+      user = create(:random_user)
+      delete :destroy, params: { :id => user.id }
+      expect(user.posts.count).to eq(0)
+      expect(flash[:notice]).to be_present
     end
   end
 end

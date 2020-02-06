@@ -96,5 +96,7 @@ RSpec.describe User, type: :model do
       expect(users.last.id).to eq(5)
       expect(users.first.id).to eq(1)
     end
+
+    it { expect(user).to have_many(:posts).dependent(:destroy) }
   end
 end

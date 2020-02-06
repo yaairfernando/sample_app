@@ -45,6 +45,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem "factory_bot_rails"
+  gem 'shoulda-matchers'
   gem 'faker'
   gem 'capybara', '>= 2.15'
   gem 'database_cleaner'

@@ -14,10 +14,27 @@ RSpec.describe UsersController, type: :controller do
     # @user = FactoryBot.create(:user)
   end
 
+  describe 'GET #Index' do
+    it 'has a 200 status code' do
+      get :index
+      expect(response.status).to eq(200)
+      expect(response).to render_template('index')
+    end  
+  end
+
+  describe 'Get #New' do
+    it 'has a 200 status code' do
+      get :new
+      expect(response.status).to eq(200)
+      expect(response).to render_template('new')
+    end
+  end
+
   describe "POST #create" do
     it 'is valid with valid attributes' do
       User.create! valid_attributes
       get :index, params: {}
+      expect(response.content_type).to eq "text/html" 
       expect(response).to be_successful 
     end
 

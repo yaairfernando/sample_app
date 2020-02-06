@@ -49,6 +49,7 @@ group :development, :test do
   gem 'faker'
   gem 'capybara', '>= 2.15'
   gem 'database_cleaner'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %I[mri mingw x64_mingw]
 end

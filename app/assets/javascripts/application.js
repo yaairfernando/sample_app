@@ -14,3 +14,18 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+function deleteErrors() {
+  const alert = document.querySelector('.alert-dismissible')
+  const btnClose = document.querySelector('#close')
+  if(btnClose) {
+    btnClose.addEventListener('click', () => {
+      btnClose.parentElement.style.display = 'none'
+    })
+  }
+  if(alert) {
+    setInterval(() => {
+      alert.style.display = 'none'
+    }, 6000);
+  }
+}

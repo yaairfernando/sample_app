@@ -29,8 +29,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '3.3.7'
-gem 'jquery-rails'
 gem 'hirb'
+gem 'jquery-rails'
 # gem 'bcrypt', '~> 3.1.7'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -42,14 +42,14 @@ gem 'hirb'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
-  gem 'rubocop'
-  gem 'sqlite3'
-  gem 'rspec-rails'
-  gem "factory_bot_rails"
-  gem 'shoulda-matchers'
-  gem 'faker'
   gem 'capybara', '>= 2.15'
   gem 'database_cleaner'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'rubocop'
+  gem 'shoulda-matchers'
+  gem 'sqlite3'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %I[mri mingw x64_mingw]
@@ -62,11 +62,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  #better errors
+  # better errors
   gem 'better_errors', '~> 2.5', '>= 2.5.1'
-  #guard
+  # guard
   # gem 'guard', '~> 2.15', '>= 2.15.1'
-  #guard livereload
+  # guard livereload
   gem 'guard-livereload', '~> 2.5', '>= 2.5.2', require: false
 end
 

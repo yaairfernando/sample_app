@@ -60,6 +60,7 @@ describe 'User Login', type: :request do
     it 'login with remembering' do
       user = create(:random_user)
       log_in_as(user, remember_me: '1')
+      # assert_equal FILL_IN, assigns(:user).FILL_IN
       expect(cookies[:remember_token].empty?).to eq(false)
     end
 

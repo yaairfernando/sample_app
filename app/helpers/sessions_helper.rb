@@ -4,6 +4,13 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
+  # Forgets a persistent session.
+  def forget(user)
+    user.forget
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
+  end
+
   # Remembers a user in a persistent session
   def remember(user)
     user.remember
@@ -31,6 +38,7 @@ module SessionsHelper
 
   # Logs out the current user
   def log_out
+    forget(current_user)
     session.delete(:user_id)
     @current_user = nil
   end

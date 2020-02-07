@@ -47,6 +47,8 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = false
+  # config.include RSpec::Rails::FixtureSupport
+  # config.include RSpec::Rails::FixtureSupport, :use_fixtures
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

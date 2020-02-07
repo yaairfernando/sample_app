@@ -14,4 +14,10 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
+
+  def destroy
+    # user = User.find_by(email: params[:session][:email].downcase)
+    session = params[:session][:email]
+    session.destroy
+  end
 end

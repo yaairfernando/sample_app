@@ -91,8 +91,24 @@ RSpec.describe UsersController, type: :controller do
       put :update, params: { id: user.id, user: new_attributes }
       user.reload
       # expect(assigns(:user).attributes['name']).to match(new_attributes[:name])
+      expect(flash).to be_present
+      expect(response).to redirect_to login_path
       expect(assigns[:user]).not_to be_new_record
     end
+
+    it 'should redirect edit when not logged in' do
+      get :edit,params: { id: user.id}
+      expect(flash).to be_present
+      expect(response).to redirect_to(login_path) 
+    end
+
+    it 'should redirect update when not logged in' do
+      patch :update , params: {:id =>user.id, :user => { name: user.name, email: user.email }}
+      expect(flash).to be_present
+      expect(response).to redirect_to login_path
+    end
+    
+    
   end
 
   describe 'DELETE #Destroy a user and its posts' do

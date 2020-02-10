@@ -8,6 +8,7 @@ RSpec.describe UsersController, type: :controller do
       password_confirmation: 'password' }
   end
   let(:user) { FactoryBot.create(:user) }
+  let(:another_user) { FactoryBot.create(:random_user) }
   let(:users) { create_list(:random_user, 5) }
   before(:all) do
     # @user = FactoryBot.create(:user)
@@ -107,8 +108,6 @@ RSpec.describe UsersController, type: :controller do
       expect(flash).to be_present
       expect(response).to redirect_to login_path
     end
-    
-    
   end
 
   describe 'DELETE #Destroy a user and its posts' do
@@ -119,4 +118,11 @@ RSpec.describe UsersController, type: :controller do
       expect(flash[:notice]).to be_present
     end
   end
+end
+
+# Log in as a particular user
+def log_in_ass(user, password: 'password', remember_me: '1')
+  post login_path, params: { session: { email: user.email,
+                                        password: password,
+                                        remember_me: remember_me } }
 end

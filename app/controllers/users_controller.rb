@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :logged_in_user, only: %i[edit update]
+  before_action :correct_user, only: %i[edit update]
 
   # GET /users
   def index
@@ -62,8 +63,17 @@ class UsersController < ApplicationController
 
   def logged_in_user
     unless logged_in?
+      store_location
       flash[:danger] = "Please Log in!!!"
       redirect_to login_path
+    end
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    unless current_user?(@user)
+      flash[:danger] = "You can not edit other users's info!!!"
+      redirect_to root_path
     end
   end
 end

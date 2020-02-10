@@ -3,11 +3,11 @@ class SessionsController < ApplicationController
 
   def create
     # render plain: params[:session].inspect
-    @user = User.find_by(email: params[:session][:email].downcase)
-    if @user&.authenticate(params[:session][:password])
-      log_in @user
-      params[:session][:remember_me] == "1" ? remember(@user) : forget(@user)
-      redirect_to @user
+    user = User.find_by(email: params[:session][:email].downcase)
+    if user&.authenticate(params[:session][:password])
+      log_in user
+      params[:session][:remember_me] == "1" ? remember(user) : forget(user)
+      redirect_back_or user
       # render html: 'Yes'
     else
       flash.now[:danger] = 'Password or email are invalid!!.. Try again please'

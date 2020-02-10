@@ -15,10 +15,10 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'GET #Index' do
-    it 'has a 200 status code' do
+    it 'should redirect index when not logged in' do
       get :index
-      expect(response.status).to eq(200)
-      expect(response).to render_template('index')
+      expect(response.status).to eq(302)
+      expect(response).to redirect_to login_path
     end
   end
 
@@ -35,7 +35,8 @@ RSpec.describe UsersController, type: :controller do
       User.create! valid_attributes
       get :index, params: {}
       expect(response.content_type).to eq 'text/html'
-      expect(response).to be_successful
+      expect(response).not_to be_successful
+      expect(response).to redirect_to login_path
     end
 
     it 'is not valid with a invalid name' do

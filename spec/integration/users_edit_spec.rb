@@ -23,16 +23,18 @@ RSpec.describe "User Edit", type: :request do
   describe "#PATCH" do
     it 'unsuccessful edit' do
       user = create(:random_user)
+      log_in_as(user)
       get edit_user_path(user)
       expect(response).to render_template('users/edit')
       patch user_path(user), params: { user: invalid_attributes }
       expect(response).to render_template('users/edit')
       assert_select 'div.alert', 1
-      assert_select 'li', 8
+      assert_select 'li', 13
     end
 
     it 'successful edit' do
       user = create(:random_user)
+      log_in_as(user)
       name = valid_attributes[:name]
       get edit_user_path(user)
       expect(response).to render_template('users/edit')
@@ -42,9 +44,5 @@ RSpec.describe "User Edit", type: :request do
       expect(flash[:success]).to be_present
       expect(name).to match(user.name)
     end
-    
-    
   end
-  
-
 end

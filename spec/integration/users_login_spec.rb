@@ -3,6 +3,14 @@ require 'rails_helper'
 describe 'User Login', type: :request do
   describe 'POST #Login' do
     let(:user) { create(:random_user)}
+    let(:valid_attributes) do
+      {
+        name: "John",
+        email: "john@gmail.com",
+        password: "",
+        password_confirmation: ""
+      }
+    end
     it 'login with invalid information' do
       get login_path
       expect(response.status).to eq(200)
@@ -72,5 +80,14 @@ describe 'User Login', type: :request do
       log_in_as(user, remember_me: '0')
       expect(cookies[:remember_token].empty?).to eq(true)
     end
+
+    it 'should not allow the admin attribute to be edited via the web' do
+      user = create(:user)
+      log_in_as(user)
+      expect(user.admin?).to eq(false)
+      patch user_path(user), params: { user: valid_attributes }
+      expect(user.admin?).to eq(false)
+    end
+    
   end
 end

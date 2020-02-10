@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :logged_in_user, only: %i[edit update index]
+  before_action :logged_in_user, only: %i[edit update index destroy]
   before_action :correct_user, only: %i[edit update]
+  before_action :admin_user, only: :destroy
 
   # GET /users
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /users/1
@@ -43,10 +44,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:success] = 'User was successfully destroyed.' 
+    redirect_to users_path
   end
 
   private
@@ -75,5 +74,9 @@ class UsersController < ApplicationController
       flash[:danger] = "You can not edit other users's info!!!"
       redirect_to root_path
     end
+  end
+
+  def admin_user
+    redirect_to root_path unless current_user.admin?
   end
 end

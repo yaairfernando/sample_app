@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'User Login', type: :request do
   describe 'POST #Login' do
     let(:user) { create(:random_user)}
+    let(:another_user) { create(:random_user)}
     let(:valid_attributes) do
       {
         name: "John",
@@ -68,25 +69,30 @@ describe 'User Login', type: :request do
     end
 
     it 'login with remembering' do
-      user = create(:random_user)
       log_in_as(user, remember_me: '1')
       # assert_equal FILL_IN, assigns(:user).FILL_IN
       expect(cookies[:remember_token].empty?).to eq(false)
     end
 
     it 'login without remembering' do
-      user = create(:random_user)
       log_in_as(user, remember_me: '1')
       log_in_as(user, remember_me: '0')
       expect(cookies[:remember_token].empty?).to eq(true)
     end
 
     it 'should not allow the admin attribute to be edited via the web' do
-      user = create(:user)
       log_in_as(user)
       expect(user.admin?).to eq(false)
       patch user_path(user), params: { user: valid_attributes }
       expect(user.admin?).to eq(false)
+    end
+
+    it 'should redirect destroy when logged in as a non-admin' do
+      log_in_as(another_user)
+      expect do
+        delete user_path(user)
+      end.to change{User.count}
+      expect(response).to redirect_to root_path
     end
     
   end

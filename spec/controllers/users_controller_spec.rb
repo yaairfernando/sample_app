@@ -116,14 +116,16 @@ RSpec.describe UsersController, type: :controller do
       user = create(:random_user)
       delete :destroy, params: { id: user.id }
       expect(user.posts.count).to eq(0)
-      expect(flash[:notice]).to be_present
+      expect(flash[:notice]).not_to be_present
+    end
+
+    it 'should redirect destroy when not logged in' do
+      user = create(:user)
+      users = create_list(:random_user,40)
+      expect do
+        delete :destroy, params: { id: user.id}
+      end.not_to change{User.count}
+      expect(response).to redirect_to login_path
     end
   end
-end
-
-# Log in as a particular user
-def log_in_ass(user, password: 'password', remember_me: '1')
-  post login_path, params: { session: { email: user.email,
-                                        password: password,
-                                        remember_me: remember_me } }
 end

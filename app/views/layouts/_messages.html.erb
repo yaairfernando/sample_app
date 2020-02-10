@@ -2,7 +2,7 @@
 <% if flash.any? %>
   <% flash.each do |name, msg| %>
     <div class="alert alert-<%="#{name}"%> alert-dismissible show' role="alert">
-      <strong>Error!</strong>  <%= msg %>
+      <%= msg %>
       <button type="button" id="close" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

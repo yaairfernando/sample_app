@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'User Login', type: :request do
   describe 'POST #Login' do
-    # fixtures :users
+    let(:user) { create(:random_user)}
     it 'login with invalid information' do
       get login_path
       expect(response.status).to eq(200)
@@ -25,6 +25,7 @@ describe 'User Login', type: :request do
       assert_template 'users/show'
       assert_select 'a[href=?]', login_path, count: 0
       assert_select 'a[href=?]', logout_path
+      assert_select 'a[href=?]', users_path
       assert_select 'a[href=?]', user_path(user)
       delete logout_path
       expect(is_logged_in?).to eq(false)
@@ -32,6 +33,7 @@ describe 'User Login', type: :request do
       follow_redirect!
       assert_select 'a[href=?]', login_path
       assert_select 'a[href=?]', logout_path, count: 0
+      assert_select 'a[href=?]', user_path(user), count: 0
       assert_select 'a[href=?]', user_path(user), count: 0
     end
 

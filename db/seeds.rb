@@ -11,3 +11,7 @@
 # { name: 'Lord of the Rings' }])
 # Character.create(name: 'Luke',
 # movie: movies.first)
+
+  User.create(name: Faker::Name.name, email: Faker::Internet.email, 
+              password: "password", password_confirmation: "password")
+

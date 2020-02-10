@@ -1,6 +1,10 @@
 <% provide(:title, 'All Users') %>
 <h1>Users</h1>
 
+<% if logged_in? %>
+  <%= link_to 'New User', signup_path %>
+<% end %>
+<%= will_paginate %>
 <ul class="users">
   <% @users.each do |user| %>
     <li>
@@ -9,7 +13,5 @@
     </li>
   <% end %>
 </ul>
+<%= will_paginate %>
 
-<% if logged_in? %>
-  <%= link_to 'New User', signup_path %>
-<% end %>

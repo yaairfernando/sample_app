@@ -6,11 +6,16 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
 
   # GET /users/1
-  def show; end
+  def show
+    unless @user.activated == true
+      flash[:warning] = "The user's account is not activated"
+      redirect_to root_path and return 
+    end
+  end
 
   # GET /users/new
   def new

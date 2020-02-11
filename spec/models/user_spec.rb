@@ -98,7 +98,7 @@ RSpec.describe User, type: :model do
     it { expect(user).to have_many(:posts).dependent(:destroy) }
 
     it 'authenticated? should return false for a user with nil digest' do
-      expect(user.authenticated?('')).to eq(false)
+      expect(user.authenticated?(:remember,'')).to eq(false)
     end
     
   end

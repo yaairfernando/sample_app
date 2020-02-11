@@ -46,5 +46,18 @@ RSpec.describe "Password", type: :request do
       expect(flash).to be_present
       expect(response).to redirect_to user
     end
+
+    it 'expired token' do
+      user = create(:user)
+      get new_password_reset_path
+      post password_resets_path, params: { password_reset: { email: user.email } }
+      user = assigns(:user)
+      user.update_attribute(:reset_sent_at, 3.hours.ago)
+      patch password_reset_path(user.reset_token), params: { email: user.email,
+        user: { password: "foobar", password_confirmation: "foobar" } }
+      assert_response :redirect
+      follow_redirect!
+    end
+    
   end
 end

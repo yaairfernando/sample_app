@@ -15,8 +15,8 @@ RSpec.describe "User Edit", type: :request do
     {
       name: "John",
       email: "john@gmail.com",
-      password: "",
-      password_confirmation: ""
+      password: "password",
+      password_confirmation: "password"
     }
   end
 
@@ -32,7 +32,7 @@ RSpec.describe "User Edit", type: :request do
       patch user_path(user), params: { user: invalid_attributes }
       expect(response).to render_template('users/edit')
       assert_select 'div.alert', 1
-      assert_select 'li', 13
+      assert_select 'li', 14
     end
 
     it 'successful edit' do

@@ -15,5 +15,7 @@ Rails.application.routes.draw do
   resources :users, except: %i[new]
   resources :posts
   resources :account_activations, only: %i[edit]
+
+  default_url_options :host => "localhost:3000"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
